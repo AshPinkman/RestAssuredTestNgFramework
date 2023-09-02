@@ -14,7 +14,10 @@ public final class ExtentReport {
     public static void initReports(){
         reports = new ExtentReports();
         ExtentSparkReporter spark = new ExtentSparkReporter("index.html");
+        spark.config().setDocumentTitle("RestAssuredAutomationProject");
+        spark.config().setReportName("Pet Store API");
         reports.attachReporter(spark);
+        reports.setSystemInfo("Application", "Pet Store API");
     }
 
     public static void tearDownReports(){
@@ -24,5 +27,17 @@ public final class ExtentReport {
     public static void createTest(String name){
         ExtentTest test = reports.createTest(name);
         ExtentManager.setTest(test);
+    }
+
+    public static void addAuthor(String[] authors){
+        for(String author : authors){
+            ExtentManager.getTest().assignAuthor(author);
+        }
+    }
+
+    public static void addCategoty(String[] categories){
+        for(String category : categories){
+            ExtentManager.getTest().assignCategory(category);
+        }
     }
 }

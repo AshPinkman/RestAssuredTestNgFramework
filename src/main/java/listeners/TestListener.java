@@ -1,5 +1,6 @@
 package listeners;
 
+import annotaions.FrameworkAnnotation;
 import org.testng.ISuite;
 import org.testng.ISuiteListener;
 import org.testng.ITestListener;
@@ -10,7 +11,15 @@ import reports.ExtentReport;
 public class TestListener implements ITestListener, ISuiteListener {
     @Override
     public void onTestStart(ITestResult result) {
+
         ExtentReport.createTest(result.getName());
+
+        String[] authors = result.getMethod().getConstructorOrMethod().getMethod().getAnnotation(FrameworkAnnotation.class).author();
+        ExtentReport.addAuthor(authors);
+
+        String[] categories = result.getMethod().getConstructorOrMethod().getMethod().getAnnotation(FrameworkAnnotation.class).category();
+        ExtentReport.addCategoty(categories);
+
     }
 
     @Override

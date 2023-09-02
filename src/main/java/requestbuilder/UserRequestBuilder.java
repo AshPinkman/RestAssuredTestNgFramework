@@ -1,14 +1,15 @@
-package endpoints;
+package requestbuilder;
 
+import endpoints.Routes;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import pojos.reqpojos.User;
 
-import static io.restassured.RestAssured.*;
+import static io.restassured.RestAssured.given;
 
-public final class UserEndPoints {
+public final class UserRequestBuilder {
 
-    private UserEndPoints(){
+    private UserRequestBuilder(){
 
     }
 

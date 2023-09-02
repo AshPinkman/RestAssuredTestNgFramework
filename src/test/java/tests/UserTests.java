@@ -1,12 +1,13 @@
 package tests;
 
+import annotaions.FrameworkAnnotation;
 import dataprovider.MyDataProvider;
-import endpoints.UserEndPoints;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pojos.reqpojos.User;
 import reports.ExtentLogger;
+import requestbuilder.UserRequestBuilder;
 
 import java.util.Map;
 
@@ -14,6 +15,7 @@ public class UserTests {
 
 
     @Test(priority = 1, dataProvider = "getUserData", dataProviderClass = MyDataProvider.class)
+    @FrameworkAnnotation
     public void createUserTest(Map<String, String> map) {
         User user = new User();
         user.setId(Integer.parseInt(map.get("user_id")));
@@ -24,7 +26,7 @@ public class UserTests {
         user.setPassword(map.get("password"));
         user.setPhone(map.get("phone"));
 
-        Response response = UserEndPoints.createUser(user);
+        Response response = UserRequestBuilder.createUser(user);
         response.then().log().all();
 
         ExtentLogger.logResponse(response.asPrettyString());
@@ -33,8 +35,10 @@ public class UserTests {
     }
 
     @Test(priority = 2, dataProvider = "getUserData", dataProviderClass = MyDataProvider.class)
+    @FrameworkAnnotation
     public void getUserTest(Map<String, String> map) {
-        Response response = UserEndPoints.getUser(map.get("username"));
+
+        Response response = UserRequestBuilder.getUser(map.get("username"));
         response.then().log().all();
 
         ExtentLogger.logResponse(response.asPrettyString());
